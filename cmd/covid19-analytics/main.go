@@ -1,8 +1,6 @@
 package main
 
 import (
-  "time"
-
   "github.com/robfig/cron/v3"
   "github.com/ObieWalker/covid19-analytics/services"
   log "github.com/sirupsen/logrus"
@@ -11,12 +9,11 @@ import (
 func main() {
 
   c := cron.New()
-  c.AddFunc("@every 1m", func() {
+  c.AddFunc("@every 12h", func() {
     log.Infof("Cron Job Running...")
     services.GetCountriesData() 
   })
 
   c.Start()
-  time.Sleep(2 * time.Minute)
 
  }

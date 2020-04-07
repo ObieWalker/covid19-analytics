@@ -9,9 +9,6 @@ import (
   "go.mongodb.org/mongo-driver/mongo"
 )
 
-
-
-
 var countries []interface{}
 
 func CreateCountriesCollection(collection *mongo.Collection, countriesData string) {
@@ -26,5 +23,4 @@ func CreateCountriesCollection(collection *mongo.Collection, countriesData strin
 	}
 
 	fmt.Println("Total Count: ", len(result.InsertedIDs))
-
 }
