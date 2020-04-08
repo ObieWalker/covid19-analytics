@@ -11,7 +11,7 @@ func main() {
   c := cron.New()
   c.AddFunc("@every 12h", func() {
     log.Infof("Cron Job Running...")
-    services.GetCountriesData() 
+    services.UpdateCountriesData() 
   })
 
   c.Start()
