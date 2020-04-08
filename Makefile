@@ -4,6 +4,9 @@ build:
 run:
 	go run cmd/covid19-analytics/main.go
 
+seed:
+	go run scripts/seedPopDensity.go
+
 compile:
 	# 32-Bit Systems
 	# FreeBDS

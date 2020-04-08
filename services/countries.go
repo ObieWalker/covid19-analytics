@@ -11,7 +11,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func GetCountriesData() {
+func UpdateCountriesData() {
 	err := godotenv.Load()
   if err != nil {
     log.Fatal("Error loading .env file ", err)
@@ -31,6 +31,6 @@ func GetCountriesData() {
 	}
 
 	collection := helper.ConnectDB()
-	models.CreateCountriesCollection(collection, string(body))
+	models.UpdateCountriesCollection(collection, string(body))
 	return
 }
