@@ -30,3 +30,12 @@ type Country struct {
 	WeekIncreaseRate float32	 `bson:"weekIncreaseRate"`
 	ThreeDayRate int32    		 `bson:"threeDayRate"`
 }
+
+type CountryData struct {
+	Country   string 				`json:"country"`
+	PopulationDensity string `json:"popDensity"`
+}
+
+var countries []map[string]interface{}
+
+var ctry []interface{}
