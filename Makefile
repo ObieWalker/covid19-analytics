@@ -4,8 +4,11 @@ build:
 run:
 	go run cmd/covid19-analytics/main.go
 
-seed:
-	go run scripts/seedPopDensity.go
+seedDensity:
+	go run scripts/popDensity/seedPopDensity.go
+
+seedDailyChange:
+	go run scripts/dailyChange/seedDailyChange.go
 
 compile:
 	# 32-Bit Systems

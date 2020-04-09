@@ -26,9 +26,11 @@ type Country struct {
 	Tests int32			 	         `bson:"tests,omitempty,omitempty"`
 	TestsPerOneMillion float32 `bson:"testsPerOneMillion,omitempty"`
 	PopulationDensity int32	   `bson:"populationDensity"`
-	LatestWeekCases []int32  	 `bson:"latestWeekCases"`
-	WeekIncreaseRate float32	 `bson:"weekIncreaseRate"`
-	ThreeDayRate int32    		 `bson:"threeDayRate"`
+	FortnightCases []int32  	 `bson:"fortnightCases"`
+	WeekCases []int32  				 `bson:"weekCases"`
+	FortnightAverage float32	 `bson:"fortnightAverage"`
+	WeekAverage float32	       `bson:"weekAverage"`
+	CasesRate float32					 `bson:"casesRate"`
 }
 
 type CountryData struct {

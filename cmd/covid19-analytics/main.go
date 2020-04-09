@@ -8,11 +8,13 @@ import (
 
 func main() {
 
-  c := cron.New()
-  c.AddFunc("@every 12h", func() {
+  nyc, _ := time.LoadLocation("America/New_York")
+  c := cron.New(cron.WithLocation(nyc))
+  c.AddFunc("0 19 * * ?", func() {
     log.Infof("Cron Job Running...")
     services.UpdateCountriesData() 
   })
 
   c.Start()
- }
+
+}

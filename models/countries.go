@@ -74,3 +74,13 @@ func UpdateCountriesPopulationDensity(collection *mongo.Collection, countriesDat
 	}
 	fmt.Printf("Total successful entries were %v out of %v", j, k)
 }
+
+func UpdateWeekCases(collection *mongo.Collection, country string, fortnightChange, weekChange []float64){
+	filter := bson.M{"country": bson.M{"$eq": country}}
+	update := bson.M{"$addToSet": bson.M{
+		"fortnightCases": bson.M{"$each": fortnightChange},
+		"weekCases": bson.M{"$each": weekChange},
+
+	}}
+	collection.UpdateOne(context.TODO(), filter, update)
+}
