@@ -50,8 +50,8 @@ func main() {
 
 		var s []float64
 
-		for _, element := range cases.(map[string]interface{}) {
-			value, _ := element.(float64)
+		for _, element := range cases.(map[string]float64) {
+			value, _ := element
 			s = append(s, value)
 		}
 		sort.Float64s(s)

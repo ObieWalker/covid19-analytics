@@ -24,7 +24,7 @@ func UpdateCountriesData() {
 	}
 
 	defer resp.Body.Close()
-	collection := helper.ConnectDB()
+
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil{
 		log.Fatal(err)
