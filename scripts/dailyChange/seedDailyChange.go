@@ -1,43 +1,42 @@
 package main
 
 import (
-	"io/ioutil"
 	"encoding/json"
-	"net/http"
-	"math"
-	"sort"
 	"fmt"
+	"io/ioutil"
+	"math"
+	"net/http"
+	"sort"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/ObieWalker/covid19-analytics/helper"
 	"github.com/ObieWalker/covid19-analytics/models"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {
 
 	resp, err := http.Get("https://corona.lmao.ninja/v2/historical")
 
-  if err != nil{
-  log.Fatal(err)
-  }
-  
-  var data []map[string] interface{}
- 
-
-  body, err := ioutil.ReadAll(resp.Body)
-	if err != nil{
+	if err != nil {
 		log.Fatal(err)
-  }
-  obj := string(body)
-  dataError :=json.Unmarshal([]byte(obj), &data)
+	}
 
-  if dataError != nil {
-    log.Fatal(dataError)
-  } 
+	var data []map[string]interface{}
 
-	type HistoryData struct{
-		Country string
-		WeekData []float64
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	obj := string(body)
+	dataError := json.Unmarshal([]byte(obj), &data)
+
+	if dataError != nil {
+		log.Fatal(dataError)
+	}
+
+	type HistoryData struct {
+		Country       string
+		WeekData      []float64
 		fortnightData []float64
 	}
 
@@ -46,7 +45,7 @@ func main() {
 	fmt.Println("Adding daily update to DB...")
 	for _, e := range data {
 		hd.Country = e["country"].(string)
-  	cases := e["timeline"].(map[string]interface{})["cases"]
+		cases := e["timeline"].(map[string]interface{})["cases"]
 
 		var s []float64
 
@@ -63,12 +62,11 @@ func main() {
 	fmt.Println("Done.")
 }
 
-
-func getDailyDifference(sli []float64)([]float64) {
-  var diffSlice []float64
-  for i := 0; i < len(sli)-1; i++ {
-    val := math.Abs(sli[i] - sli[i+1])
-    diffSlice = append(diffSlice, val)
-  }
-  return diffSlice
+func getDailyDifference(sli []float64) []float64 {
+	var diffSlice []float64
+	for i := 0; i < len(sli)-1; i++ {
+		val := math.Abs(sli[i] - sli[i+1])
+		diffSlice = append(diffSlice, val)
+	}
+	return diffSlice
 }
