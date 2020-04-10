@@ -11,7 +11,7 @@ import (
 
 func main() {
 
-	collection := helper.ConnectDB()
+	collection := helper.GetCollection()
 	byteData := readJSONFile("scripts/popDensity/populationData.json")
 
 	models.UpdateCountriesPopulationDensity(collection, byteData)
