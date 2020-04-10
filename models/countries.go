@@ -8,6 +8,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"github.com/ObieWalker/covid19-analytics/dao"
 )
 
 //GetCountriesCollection ...
@@ -55,7 +56,9 @@ func UpdateCountriesCollection(collection *mongo.Collection, countriesData strin
 	fmt.Println("Starting database update...")
 
 	j := 0
-	for i := range countries {
+	// for i := range countries {
+	for i := 0; i < 2; i++ {
+		var replacedDocument bson.M
 		doc := countries[i]
 		filter := bson.M{"country": bson.M{"$eq": doc["country"]}}
 		update := bson.M{"$set": bson.M{
@@ -70,11 +73,22 @@ func UpdateCountriesCollection(collection *mongo.Collection, countriesData strin
 			"deathsPerOneMillion": doc["deathsPerOneMillion"],
 			"tests":               doc["tests"],
 			"testsPerOneMillion":  doc["testsPerOneMillion"],
+		}, "$push": bson.M{
+			"fortnightCases": doc["todayCases"],
+			"weekCases": doc["todayCases"],
 		}}
-		result, _ := collection.UpdateOne(context.TODO(), filter, update)
 
-		if result.MatchedCount > 0 {
+		err := collection.FindOneAndUpdate(
+			context.TODO(), filter, update,
+		).Decode(&replacedDocument)
+
+		if err != nil{
+			log.Fatal(err)
+		}
+		
+		if replacedDocument["_id"] != nil {
 			j++
+			go dao.GetCasesAverage(collection, replacedDocument["_id"])
 		}
 	}
 

@@ -10,6 +10,9 @@ import (
 	"github.com/robfig/cron/v3"
 	log "github.com/sirupsen/logrus"
 	"net/http"
+  "github.com/robfig/cron/v3"
+  "github.com/ObieWalker/covid19-analytics/services"
+  log "github.com/sirupsen/logrus"
 )
 
 func main() {
@@ -30,4 +33,5 @@ func main() {
 
 	http.ListenAndServe(":8000", router)
 
+  time.Sleep(1 * time.Minute)
 }
