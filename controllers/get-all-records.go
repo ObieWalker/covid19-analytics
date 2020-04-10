@@ -14,5 +14,6 @@ func GetAllCountryRecords(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("fetching records...")
 	records := services.GetAllCountriesRecords()
 
-	fmt.Println("Records: ", json.NewEncoder(w).Encode(records))
+	json.NewEncoder(w).Encode(records)
+	fmt.Println("Records Fetched Completely")
 }

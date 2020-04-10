@@ -3,19 +3,18 @@ package main
 import (
 	"time"
 
-	"context"
-
 	"github.com/ObieWalker/covid19-analytics/helper"
 	"github.com/ObieWalker/covid19-analytics/routes"
 	"github.com/ObieWalker/covid19-analytics/services"
 	"github.com/gorilla/mux"
 	"github.com/robfig/cron/v3"
 	log "github.com/sirupsen/logrus"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"net/http"
 )
 
 func main() {
+	// Initialize database
+	helper.ConnectDB()
 
 	nyc, _ := time.LoadLocation("America/New_York")
 	c := cron.New(cron.WithLocation(nyc))
@@ -25,8 +24,6 @@ func main() {
 	})
 
 	c.Start()
-
-	helper.ConnectDB()
 
 	router := mux.NewRouter()
 	routes.UseRoutes(router)
