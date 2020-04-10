@@ -40,7 +40,7 @@ func main() {
 		fortnightData []float64
 	}
 
-	collection := helper.ConnectDB()
+	collection := helper.GetCollection()
 	hd := HistoryData{}
 	fmt.Println("Adding daily update to DB...")
 	for _, e := range data {
