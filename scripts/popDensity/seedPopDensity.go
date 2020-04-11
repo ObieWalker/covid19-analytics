@@ -1,9 +1,9 @@
 package main
 
 import (
-	"io/ioutil"
-	"fmt"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 
 	"github.com/ObieWalker/covid19-analytics/helper"
 	"github.com/ObieWalker/covid19-analytics/models"
@@ -11,16 +11,15 @@ import (
 
 func main() {
 
-	collection := helper.ConnectDB()
-	byteData := readJsonFile("scripts/popDensity/populationData.json")
+	collection := helper.GetCollection()
+	byteData := readJSONFile("scripts/popDensity/populationData.json")
 
 	models.UpdateCountriesPopulationDensity(collection, byteData)
-	
+
 	return
 }
 
-
-func readJsonFile(filename string) ([]models.CountryData) {
+func readJSONFile(filename string) []models.CountryData {
 	byteValues, err := ioutil.ReadFile(filename)
 
 	if err != nil {
