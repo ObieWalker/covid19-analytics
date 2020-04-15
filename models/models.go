@@ -26,12 +26,12 @@ type Country struct {
 	DeathsPerOneMillion float64 `bson:"deathsPerOneMillion,omitempty"`
 	Tests               int32   `bson:"tests,omitempty,omitempty"`
 	TestsPerOneMillion  float64 `bson:"testsPerOneMillion,omitempty"`
-	PopulationDensity   string   `bson:"populationDensity"`
+	PopulationDensity   string  `bson:"populationDensity"`
 	FortnightCases      []int32 `bson:"fortnightCases"`
-	WeekCases           []int32 `bson:"weekCases"`
-	FortnightAverage    float64 `bson:"fortnightAverage"`
+	FortnightAverage    float64	`bson:"fortnightAverage"`
 	WeekAverage         float64 `bson:"weekAverage"`
-	CasesRate           float64 `bson:"casesRate"`
+	DropRate            float64	`bson:"dropRate"`
+	OneWeekProjection   int32	  `bson:"oneWeekProjection"`
 }
 
 //CountryData ...
@@ -40,6 +40,12 @@ type CountryData struct {
 	PopulationDensity string `json:"popDensity"`
 }
 
-var countries []map[string]interface{}
+type HistoryData struct{
+	Country string
+	WeekData []float64
+	fortnightData []float64
+}
 
-var ctry []interface{}
+var Countries []map[string]interface{}
+
+var Ctry []interface{}

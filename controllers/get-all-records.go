@@ -3,8 +3,9 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/ObieWalker/covid19-analytics/services"
 	"net/http"
+
+	"github.com/ObieWalker/covid19-analytics/services"
 )
 
 // GetAllCountryRecords ...
@@ -15,5 +16,5 @@ func GetAllCountryRecords(w http.ResponseWriter, req *http.Request) {
 	records := services.GetAllCountriesRecords()
 
 	json.NewEncoder(w).Encode(records)
-	fmt.Println("Records Fetched Completely")
+	fmt.Println("Records Fetched Completely.")
 }
