@@ -6,16 +6,22 @@ import (
 	"io/ioutil"
 	"math"
 	"net/http"
+	"os"
 	"sort"
 
 	"github.com/ObieWalker/covid19-analytics/helper"
-	"github.com/ObieWalker/covid19-analytics/models"
+	"github.com/ObieWalker/covid19-analytics/dao"
 	log "github.com/sirupsen/logrus"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file ", err)
+	}
 
-	resp, err := http.Get("https://corona.lmao.ninja/v2/historical")
+	resp, err := http.Get(os.Getenv("HISTORY_URL"))
 
 	if err != nil {
 		log.Fatal(err)
@@ -50,14 +56,12 @@ func main() {
 		var s []float64
 
 		for _, element := range cases.(map[string]float64) {
-			value, _ := element
-			s = append(s, value)
+			s = append(s, element)
 		}
 		sort.Float64s(s)
 		fortnight := s[len(s)-15:]
-		week := s[len(s)-8:]
 
-		models.UpdateWeekCases(collection, hd.Country, getDailyDifference(fortnight), getDailyDifference(week))
+		dao.UpdateWeekCases(collection, hd.Country, getDailyDifference(fortnight))
 	}
 	fmt.Println("Done.")
 }
