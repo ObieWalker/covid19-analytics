@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/ObieWalker/covid19-analytics/helper"
-	"github.com/ObieWalker/covid19-analytics/models"
+	"github.com/ObieWalker/covid19-analytics/dao"
 	"github.com/joho/godotenv"
 )
 
@@ -19,7 +19,7 @@ func GetAllCountriesRecords() interface{} {
 	}
 
 	collection := helper.GetCollection()
-	records := models.GetCountriesCollection(collection)
+	records := dao.GetCountriesCollection(collection)
 	return records
 
 }
@@ -39,11 +39,12 @@ func UpdateCountriesData() {
 
 	defer resp.Body.Close()
 	collection := helper.GetCollection()
+
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	models.UpdateCountriesCollection(collection, string(body))
+	dao.UpdateCountriesCollection(collection, string(body))
 	return
 }

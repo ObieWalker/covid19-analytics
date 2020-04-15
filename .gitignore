@@ -20,4 +20,4 @@ Gopkg.toml
 
 .env
 /vendor
-cmd/covid19-analytics/.env
+scripts/
