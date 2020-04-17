@@ -14,8 +14,10 @@ import (
 //GetAllCountriesRecords ...
 func GetAllCountriesRecords() interface{} {
 	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file ", err)
+	if os.Getenv("APP_ENV") != "production" {
+		if err != nil {
+			log.Fatal("Error loading .env file ", err)
+		}
 	}
 
 	collection := helper.GetCollection()
@@ -27,8 +29,10 @@ func GetAllCountriesRecords() interface{} {
 // UpdateCountriesData this should update the country records on the database
 func UpdateCountriesData() {
 	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file ", err)
+	if os.Getenv("APP_ENV") != "production" {
+		if err != nil {
+			log.Fatal("Error loading .env file ", err)
+		}
 	}
 
 	resp, err := http.Get(os.Getenv("COUNTRIES_URL"))
