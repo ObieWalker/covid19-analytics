@@ -2,7 +2,8 @@ package main
 
 import (
   "time"
-  "net/http"
+	"net/http"
+	"os"
 
 	"github.com/ObieWalker/covid19-analytics/helper"
 	"github.com/ObieWalker/covid19-analytics/routes"
@@ -28,5 +29,5 @@ func main() {
 	router := mux.NewRouter()
 	routes.UseRoutes(router)
 
-	http.ListenAndServe(":8000", router)
+	http.ListenAndServe(":" + os.Getenv("PORT"), router)
 }

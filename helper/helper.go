@@ -20,7 +20,7 @@ func CalculateSliceAverage(c1 chan float64, c2 chan float64, sli primitive.A){
 	c2 <- weekSum/float64(sliLen/2)
 }
 
-func OneWeekProjection(c3 chan float64, current, dropRate float64, weeks int32){
+func OneWeekProjection(c3 chan float64, current, dropRate float64, weeks int64){
 	rate := current * dropRate
 	newCurrent := current - rate
 	c3 <- newCurrent
