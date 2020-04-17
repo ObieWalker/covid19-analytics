@@ -7,12 +7,13 @@ import (
 	"os"
 
 	"github.com/ObieWalker/covid19-analytics/helper"
+	"github.com/ObieWalker/covid19-analytics/models"
 	"github.com/ObieWalker/covid19-analytics/dao"
 	"github.com/joho/godotenv"
 )
 
 //GetAllCountriesRecords ...
-func GetAllCountriesRecords() interface{} {
+func GetAllCountriesRecords()([]models.Country) {
 	err := godotenv.Load()
 	if os.Getenv("APP_ENV") != "production" {
 		if err != nil {
@@ -22,8 +23,8 @@ func GetAllCountriesRecords() interface{} {
 
 	collection := helper.GetCollection()
 	records := dao.GetCountriesCollection(collection)
-	return records
 
+	return records
 }
 
 // UpdateCountriesData this should update the country records on the database

@@ -142,7 +142,7 @@ func UpdateCountriesCollection(collection *mongo.Collection, countriesData strin
 }
 
 //GetCountriesCollection ...
-func GetCountriesCollection(collection *mongo.Collection) interface{} {
+func GetCountriesCollection(collection *mongo.Collection)([]models.Country) {
 	var ctx context.Context
 	cur, _ := collection.Find(ctx, bson.M{})
 	defer cur.Close(ctx)
@@ -150,7 +150,6 @@ func GetCountriesCollection(collection *mongo.Collection) interface{} {
 	resultList := make([]models.Country, 0)
 	var result models.Country
 	for cur.Next(ctx) {
-		fmt.Println(">>>>", cur)
 		err := cur.Decode(&result)
 		resultList = append(resultList, result)
 		if err != nil {
@@ -162,4 +161,3 @@ func GetCountriesCollection(collection *mongo.Collection) interface{} {
 	}
 	return resultList
 }
-
