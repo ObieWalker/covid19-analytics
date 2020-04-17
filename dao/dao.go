@@ -101,7 +101,7 @@ func UpdateCountriesCollection(collection *mongo.Collection, countriesData strin
 		var replacedDocument bson.M
 		doc := models.Countries[i]
 
-		// todaysCasesSli := []float64{doc["todayCases"].(float64)}
+		todaysCasesSli := []float64{doc["todayCases"].(float64)}
 		
 		filter := bson.M{"country": bson.M{"$eq": doc["country"]}}
 		update := bson.D{
@@ -118,10 +118,10 @@ func UpdateCountriesCollection(collection *mongo.Collection, countriesData strin
 				{"tests", doc["tests"]},
 				{"testsPerOneMillion", doc["testsPerOneMillion"]},
 			}},
-		// {"$push", bson.M{
-		// 	"fortnightCases": bson.M{"$each": todaysCasesSli,
-		// "$slice": -14 }},
-		// }
+		{"$push", bson.M{
+			"fortnightCases": bson.M{"$each": todaysCasesSli,
+		"$slice": -14 }},
+		},
 	}
 
 		fmt.Println("just before update")
