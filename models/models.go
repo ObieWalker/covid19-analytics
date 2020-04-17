@@ -26,7 +26,7 @@ type Country struct {
 	DeathsPerOneMillion float64 `bson:"deathsPerOneMillion,omitempty"`
 	Tests               int32   `bson:"tests,omitempty,omitempty"`
 	TestsPerOneMillion  float64 `bson:"testsPerOneMillion,omitempty"`
-	PopulationDensity   int32   `bson:"populationDensity"`
+	PopulationDensity   int32   `bson:"populationDensity,truncate"`
 	FortnightCases      []int32 `bson:"fortnightCases"`
 	FortnightAverage    float64	`bson:"fortnightAverage"`
 	WeekAverage         float64 `bson:"weekAverage"`
