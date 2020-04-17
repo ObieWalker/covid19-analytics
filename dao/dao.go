@@ -152,10 +152,12 @@ func GetCountriesCollection(collection *mongo.Collection) interface{} {
 	for cur.Next(ctx) {
 		err := cur.Decode(&result)
 		resultList = append(resultList, result)
+		fmt.Println("errors on line 155")
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
+	fmt.Println("errors on line 160")
 	if err := cur.Err(); err != nil {
 		log.Fatal(err)
 	}
