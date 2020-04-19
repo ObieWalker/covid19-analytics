@@ -15,7 +15,7 @@ this will also start the application.
 Please note, this project is ongoing so it will not perform to an optimal level until completion.
 
 
-##### Authors
-[Obinna Walker](https://github.com/ObieWalker)
+##### Contributors
+[![](https://avatars0.githubusercontent.com/u/8572766?size=40)](https://github.com/ObieWalker) [Obinna Walker](https://github.com/ObieWalker)
 
-[Gabriel Micah](https://github.com/topseySuave)
+[![](https://avatars0.githubusercontent.com/u/26353008?size=40)](https://github.com/topseySuave) [Gabriel Micah](https://github.com/topseySuave)
