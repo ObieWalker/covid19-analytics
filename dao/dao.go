@@ -27,14 +27,14 @@ func getCasesAverage(collection *mongo.Collection, id interface{}){
 
 	fortnightAverage, weekAverage := <- c1, <- c2
 
-	var casesRate, oneWeekProjection float64
+	var dropRate, oneWeekProjection float64
 
 	if fortnightAverage == 0.0 {
-		casesRate = 0.0
+		dropRate = 0.0
 		oneWeekProjection = 0.0
 	} else {
-		casesRate = (fortnightAverage-weekAverage)/fortnightAverage
-		go helper.OneWeekProjection(c3, weekAverage, casesRate, 0)
+		dropRate = (fortnightAverage-weekAverage)/fortnightAverage
+		go helper.OneWeekProjection(c3, weekAverage, dropRate, 0)
 		oneWeekProjection = <- c3
 	}
 
@@ -42,7 +42,7 @@ func getCasesAverage(collection *mongo.Collection, id interface{}){
 	update := bson.M{"$set": bson.M{
 		"fortnightAverage": fortnightAverage,
 		"weekAverage": weekAverage,
-		"casesRate" : casesRate,
+		"dropRate" : dropRate,
 		"oneWeekProjection" : oneWeekProjection,
 	}}
 
@@ -123,8 +123,6 @@ func UpdateCountriesCollection(collection *mongo.Collection, countriesData strin
 		"$slice": -14 }},
 		},
 	}
-
-		fmt.Println("just before update")
 		err1 := collection.FindOneAndUpdate(
 			context.TODO(),
 			filter,
@@ -140,7 +138,7 @@ func UpdateCountriesCollection(collection *mongo.Collection, countriesData strin
 			go getCasesAverage(collection, replacedDocument["_id"])
 		}
 	}
-
+	fmt.Println("Done!")
 	fmt.Printf("%v countries updated", j)
 }
 
