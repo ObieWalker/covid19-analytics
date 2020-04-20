@@ -19,7 +19,7 @@ func main() {
 
 	nyc, _ := time.LoadLocation("America/New_York")
 	c := cron.New(cron.WithLocation(nyc))
-	c.AddFunc("30 19 * * ?", func() {
+	c.AddFunc("0 18 * * ?", func() {
     log.Infof("Cron Job Running...")
 		services.UpdateCountriesData()
 	})
