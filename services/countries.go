@@ -21,7 +21,6 @@ func GetAllCountriesRecords() interface{} {
 	collection := helper.GetCollection()
 	records := models.GetCountriesCollection(collection)
 	return records
-
 }
 
 // UpdateCountriesData this should update the country records on the database
