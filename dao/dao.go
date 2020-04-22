@@ -53,6 +53,7 @@ func getCasesAverage(collection *mongo.Collection, id interface{}){
 	)
 }
 
+// UpdatePopulationDensity ...
 func UpdatePopulationDensity(collection *mongo.Collection, countriesData []models.CountryData){
 	fmt.Println("Starting database seed...")
 	j := 0
@@ -69,6 +70,7 @@ func UpdatePopulationDensity(collection *mongo.Collection, countriesData []model
 	fmt.Printf("Total successful entries were %v out of %v", j, k)
 }
 
+// UpdateWeekCases ...
 func UpdateWeekCases(collection *mongo.Collection, country string, fortnightChange []float64){
 	filter := bson.M{"country": bson.M{"$eq": country}}
 	update := bson.M{"$push": bson.M{
@@ -76,6 +78,7 @@ func UpdateWeekCases(collection *mongo.Collection, country string, fortnightChan
 	collection.UpdateOne(context.TODO(), filter, update)
 }
 
+// CreateCountriesCollection ...
 func CreateCountriesCollection(collection *mongo.Collection, countriesData string) {
 	err := json.Unmarshal([]byte(countriesData), &models.Ctry)
 	if err != nil {
@@ -89,6 +92,7 @@ func CreateCountriesCollection(collection *mongo.Collection, countriesData strin
 	fmt.Println("Total Count: ", len(result.InsertedIDs))
 }
 
+// UpdateCountriesCollection ...
 func UpdateCountriesCollection(collection *mongo.Collection, countriesData string) {
 	err := json.Unmarshal([]byte(countriesData), &models.Countries)
 	if err != nil {
@@ -149,8 +153,9 @@ func GetCountriesCollection(collection *mongo.Collection)([]models.Country) {
 	defer cur.Close(ctx)
 
 	resultList := make([]models.Country, 0)
-	var result models.Country
+	
 	for cur.Next(ctx) {
+		var result models.Country
 		err := cur.Decode(&result)
 		resultList = append(resultList, result)
 		if err != nil {
