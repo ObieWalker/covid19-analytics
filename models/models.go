@@ -40,12 +40,15 @@ type CountryData struct {
 	PopulationDensity string `json:"popDensity"`
 }
 
+// HistoryData ...
 type HistoryData struct{
 	Country string
 	WeekData []float64
 	fortnightData []float64
 }
 
+// Countries ...
 var Countries []map[string]interface{}
 
+// Ctry ...
 var Ctry []interface{}
