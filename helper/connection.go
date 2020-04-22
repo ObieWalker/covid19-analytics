@@ -21,9 +21,12 @@ var (
 //ConnectDB Connect to our mongoDB database
 func ConnectDB() (*mongo.Client, error) {
 	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file ", err)
+	if os.Getenv("APP_ENV") != "production" {
+		if err != nil {
+			log.Fatal("Error loading .env file ", err)
+		}
 	}
+
 	// Set client options
 	clientOptions := options.Client().ApplyURI(os.Getenv("ATLAS_URL"))
 
