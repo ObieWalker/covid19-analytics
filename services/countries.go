@@ -23,7 +23,7 @@ func GetAllCountriesRecords()([]models.Country) {
 
 	collection := helper.GetCollection()
 	records := dao.GetCountriesCollection(collection)
-
+  
 	return records
 }
 
