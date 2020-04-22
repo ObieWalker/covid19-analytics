@@ -22,3 +22,5 @@ Gopkg.toml
 .env
 /vendor
 scripts/
+
+.vscode
